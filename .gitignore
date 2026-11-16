@@ -1,0 +1,24 @@
+# 编译产物
+*.exe
+*.o
+*.obj
+*.out
+*.ilk
+*.pdb
+a.out
+
+# 构建目录
+build/
+cmake-build-*/
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile.cmake
+compile_commands.json
+
+# 编辑器 / 系统
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.swp
