@@ -22,7 +22,7 @@ int appendElem(Seqlist* L,Elemtype e){
 //顺序表遍历
 void listElem(Seqlist* L){
     for(int i = 0;i<L->length;i++){
-        printf("%d ",L->data[i]);
+        printf("%d",*L.data[i]);
         printf(" ");
     }
 }
