@@ -1,64 +1,63 @@
-# c-projects
+# 数据结构练习 · Data Structure Practice
 
-C 语言练习工程 —— 栈排列合法性校验。
+C 语言数据结构练习代码，每个 `.c` 文件是一个**独立可运行**的小练习。
 
-## 题目
-
-给定栈容量 `m`、入栈序列长度 `n`、待检查序列数 `k`：元素按 `1..n` 顺序入栈，
-判断每个长度为 `n` 的序列是否是合法的出栈序列。
-
-输入格式：
+## 📂 目录结构
 
 ```
-m n k
-<k 行，每行 n 个整数>
+c-projects/
+├── src/                 ← 所有练习代码都在这里
+│   ├── seqlist.c        顺序表：结构定义与初始化
+│   └── test1.c          环境测试
+├── sample-input.txt    输入样例（供需要读入数据的练习使用）
+├── Makefile
+├── CMakeLists.txt
+└── .github/workflows/  自动编译（三平台）
 ```
 
-输出：每行一个 `YES` 或 `NO`。
+## 📑 练习索引
 
-## 环境要求
+| 文件 | 内容 | 状态 |
+|------|------|------|
+| [src/seqlist.c](src/seqlist.c) | 顺序表：存储结构定义 + 初始化 | ✅ |
+| [src/test1.c](src/test1.c) | 环境测试 | ✅ |
 
-- C17 编译器：GCC / Clang / MSVC 任一
-- 可选：CMake ≥ 3.16，或 GNU Make
+> 新增练习：在 `src/` 下新建 `xxx.c`（要有自己的 `main`），然后更新本表格。
 
-## 编译与运行
+## 🔨 编译与运行
 
-### 方式一：Make
+### Make
 
 ```bash
-make          # 生成 main（Windows 下为 main.exe）
-make run      # 用 sample-input.txt 跑一遍
-make clean    # 清理
+make                    # 编译默认文件 src/seqlist.c
+make SRC=src/test1.c    # 编译指定文件
+make run                # 编译并运行
+make clean              # 清理
 ```
 
-### 方式二：CMake
+### CMake（一次编译全部练习）
 
 ```bash
 cmake -S . -B build
 cmake --build build
 ```
 
-### 方式三：直接调编译器
+每个 `src/*.c` 会生成一个同名可执行文件。
+
+### 直接调用编译器
 
 ```bash
-gcc -std=c17 -Wall -Wextra -O2 main.c -o main
-./main < sample-input.txt
+gcc -std=c17 -Wall -Wextra -O2 src/seqlist.c -o seqlist
+./seqlist
 ```
 
-## 示例
+## 📝 约定
 
-```bash
-./main < sample-input.txt
-```
+- 源码统一 **UTF-8** 编码
+- 每个练习文件**各自有 `main()`**，独立编译（一个程序只能有一个 `main`）
+- 编译产物（`*.exe`、`build/`）和编辑器配置（`.vscode/`）不纳入版本控制
+- Windows 中文控制台如遇乱码，本机可临时加 `-fexec-charset=GBK`；该参数不写进构建配置，以保证跨平台一致
 
-```
-YES
-NO
-YES
-```
+## ✅ 自动构建
 
-## 说明
-
-- 源码使用 **UTF-8** 编码。
-- Windows 中文控制台如需避免乱码，可在本地临时加 `-fexec-charset=GBK`；
-  该参数**没有写进** Makefile / CMake，以保证跨平台构建一致。
+推送后 GitHub Actions 会在 **Ubuntu / Windows / macOS** 三个平台自动编译 `src/` 下全部文件。

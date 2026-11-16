@@ -1,14 +1,14 @@
 #include<stdio.h>
 #include<string.h>
-#define MAXSIZE=100
+#define MAXSIZE 100
 typedef int Elemtype;
 typedef struct{
 	Elemtype data[100];
 	int length;
-}Seqlist;
+}Seqlist;//定义了顺序表的存储结构
 void initlist(Seqlist* L){
 	L->length = 0;
-}
+}//初始化步骤
 int main(){
 	Seqlist list1;
 	initlist(&list1);

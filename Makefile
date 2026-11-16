@@ -1,20 +1,22 @@
-# 最小可移植 Makefile —— Linux / macOS / Windows(MinGW) 通用
+# 数据结构练习 —— 按文件编译
 #
-#   make        编译
-#   make run    编译并运行（读取 sample-input.txt）
-#   make clean  清理产物
+#   make                     编译默认文件（src/seqlist.c）
+#   make SRC=src/test1.c     编译指定文件
+#   make run                 编译并运行默认文件
+#   make clean               清理所有产物
 
-# 用 = 而不是 ?=：make 内置了 CC=cc，?= 不会覆盖它。
-# 命令行仍可覆盖：make CC=clang
 CC     = gcc
 CFLAGS = -std=c17 -Wall -Wextra -O2
-SRC    = main.c
+
+SRC ?= src/seqlist.c
 
 ifeq ($(OS),Windows_NT)
-    TARGET := main.exe
+    EXE := .exe
 else
-    TARGET := main
+    EXE :=
 endif
+
+TARGET := $(SRC:.c=)$(EXE)
 
 .PHONY: all run clean
 
@@ -25,14 +27,14 @@ $(TARGET): $(SRC)
 
 ifeq ($(OS),Windows_NT)
 run: $(TARGET)
-	cmd /c ".\$(TARGET) < sample-input.txt"
+	cmd /c "$(subst /,\,$(TARGET))"
 
 clean:
-	-@del /f /q $(TARGET) *.o 2>nul
+	-@del /f /q src\*.exe 2>nul
 else
 run: $(TARGET)
-	./$(TARGET) < sample-input.txt
+	./$(TARGET)
 
 clean:
-	-@rm -f $(TARGET) main main.exe *.o
+	-@rm -f src/*.exe src/seqlist src/test1
 endif
