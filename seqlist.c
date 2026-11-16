@@ -1,6 +1,6 @@
 #include<stdio.h>
 #include<string.h>
-#define MAXSIZE=100
+#define MAXSIZE 100
 typedef int Elemtype;
 typedef struct{
 	Elemtype data[100];
@@ -25,6 +25,7 @@ int main(){//主测试函数
 	initlist(&list1);
 	printf("初始化成功，目前长度%d\n",list1.length);
 	printf("目前占用内存%zu字节\n",sizeof(list1.data));
-    appendElem
+    appendElem(&list1,12);
+    printf("添加元素后list的长度为%d",list1.length);
 	return 0;
 }
