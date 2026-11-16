@@ -19,6 +19,17 @@ int appendElem(Seqlist* L,Elemtype e){
     L->length++;
     return 1;
 }
+//顺序表遍历
+void listElem(Seqlist* L){
+    for(int i = 0;i<L->length;i++){
+        printf("%d ",L->data[i]);
+        printf(" ");
+    }
+}
+//顺序表插入元素（需要移动大量元素）
+
+
+
 
 int main(){//主测试函数
 	Seqlist list1;
@@ -26,6 +37,10 @@ int main(){//主测试函数
 	printf("初始化成功，目前长度%d\n",list1.length);
 	printf("目前占用内存%zu字节\n",sizeof(list1.data));
     appendElem(&list1,12);
-    printf("添加元素后list的长度为%d",list1.length);
+    appendElem(&list1,5);
+    appendElem(&list1,4);
+    appendElem(&list1,3);
+    printf("添加元素后list的长度为 %d  ",list1.length);
+    listElem(&list1);
 	return 0;
 }
