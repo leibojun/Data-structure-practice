@@ -75,11 +75,16 @@ int findElem(Seqlist* L,Elemtype e){
         printf("none");
         return 0;
     }
-    for(int i=0;i<L->length;i++){
+    int i ;
+    for(i=0;i<L->length;i++){
         if(L->data[i]==e){
             printf("这个元素在第%d个位置上\n",i+1);
             return i+1;
         }
+    }
+    if(i==L->length){
+        printf("没有这个元素\n");
+        return 0;
     }
 }
 
