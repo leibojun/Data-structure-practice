@@ -67,6 +67,15 @@ Linklist deleteElemPos(Linklist head,int pos){
     free(deleteNode);//释放内存
     return head;
 }
+//释放链表(保留头结点)
+void freeList(Linklist head){
+    Linklist p =head->next;
+    while(p!=NULL){
+        Linklist q = p->next;
+        free(p);
+        p = q;
+    }
+}
 //测试主函数
 int main(){
     Linklist list1 = initList();
