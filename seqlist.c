@@ -1,14 +1,28 @@
 #include<stdio.h>
 #include<string.h>
+#include<stdlib.h>
 #define MAXSIZE 100
 typedef int Elemtype;
 typedef struct{
 	Elemtype data[100];
 	int length;
 }Seqlist;//定义了顺序表的存储结构
+//初始化
 void initlist(Seqlist* L){
 	L->length = 0;
-}//初始化函数
+}
+//顺序表 动态分配内存地址初始化
+typedef struct{
+    Elemtype *data;//这里从数组变成了指针，指向动态分配的内存地址
+    int length;
+}SeqList;
+SeqList* initList(){
+    SeqList* L = (SeqList*)malloc(sizeof(SeqList));
+    L->data = (Elemtype*)malloc(sizeof(Elemtype)*MAXSIZE);
+    L->length = 0;
+    return L;//返回的是一个指针，指向开辟的顺序表的内存地址，所以要用变量list接收
+    //后面调用函数时直接传入list（指针类型）即可，无需取地址符&
+}
 //尾插元素法 利用length获取最后一个元素的下标
 int appendElem(Seqlist* L,Elemtype e){
     if(L->length>=MAXSIZE){
@@ -55,6 +69,19 @@ int deleteElme(Seqlist* L,int pos,Elemtype* e){
         return 1;
     }
 }
+//顺序表查找
+int findElem(Seqlist* L,Elemtype e){
+    if(L->length==0){
+        printf("none");
+        return 0;
+    }
+    for(int i=0;i<L->length;i++){
+        if(L->data[i]==e){
+            printf("这个元素在第%d个位置上\n",i+1);
+            return i+1;
+        }
+    }
+}
 
 
 int main(){//主测试函数
@@ -68,7 +95,8 @@ int main(){//主测试函数
     appendElem(&list1,4);
     appendElem(&list1,6);
     insertElem(&list1,1,36);
-    deleteElme(&list1,3,&a);//a此前定义了，用于储存deleteElme函数删除的元素
+    //deleteElme(&list1,3,&a);//a此前定义了，用于储存deleteElme函数删除的元素
+    findElem(&list1,12);
     printf("添加元素后list的长度为 %d \n",list1.length);
     listElem(&list1);//遍历顺序表
 	return 0;
