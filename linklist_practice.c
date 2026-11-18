@@ -191,6 +191,19 @@ Linklist reverlist_1(Linklist head){
      newhead->next = first;
      return newhead;
 }
+//判断链表是否有环（快慢指针法）
+int hasCycle(Linklist head){
+    Linklist fast = head;
+    Linklist slow = head;
+    while(fast!=NULL&&fast->next!=NULL){
+        fast = fast->next->next;
+        slow = slow->next;
+        if(fast==slow){
+            return 1;//有环
+        }
+    }
+    return 0;//无环
+}
 
 int main(){
     int a;
@@ -243,5 +256,26 @@ int main(){
     listElem(list3);
     Linklist newhead = reverlist_1(list3);//注意要接收返回的头节点
     listElem(newhead);
+    //判断链表是否有环测试部分
+    Linklist list4 = initList();
+    rearinsertElem(list4,1);
+    rearinsertElem(list4,2);
+    rearinsertElem(list4,3);
+    rearinsertElem(list4,4);
+    rearinsertElem(list4,5);
+    rearinsertElem(list4,6);
+    rearinsertElem(list4,7);
+    Linklist spot = list4->next->next->next;//让spot指向链表的第3个节点
+    Linklist tail = list4;
+    while(tail->next!=NULL){
+        tail = tail->next;
+    }
+    tail->next = spot;//让尾指针指向第三个节点，形成环
+    if(hasCycle(list4)){
+        printf("链表有环\n");
+    }
+    else{
+        printf("链表无环\n");
+    }
     return 0;
 }
