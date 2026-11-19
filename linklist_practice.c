@@ -198,11 +198,43 @@ int hasCycle(Linklist head){
     while(fast!=NULL&&fast->next!=NULL){
         fast = fast->next->next;
         slow = slow->next;
-        if(fast==slow){
+        if(fast==slow){//它俩能走到一块，说明有环
             return 1;//有环
         }
     }
     return 0;//无环
+}
+//找环的入口点，快慢指针，先求环节点数n，快指针先走n步，然后快慢一块走
+Linklist findcyclespot(Linklist head){
+    Linklist fast = head, slow = head;
+
+    // ① 只负责找相遇点
+    while(fast != NULL && fast->next != NULL){
+        fast = fast->next->next;
+        slow = slow->next;
+        if(fast == slow) break;
+    }
+    if(fast == NULL || fast->next == NULL) return NULL;   // 无环
+
+    // ② 数环长（在循环外）
+    int count = 1;
+    Linklist p = fast->next;
+    while(p != fast){
+        p = p->next;
+        count++;
+    }
+
+    // ③ 找入口（在循环外）
+    fast = head;
+    slow = head;
+    for(int i = 0; i < count; i++){
+        fast = fast->next;
+    }
+    while(fast != slow){
+        fast = fast->next;
+        slow = slow->next;
+    }
+    return slow;
 }
 
 int main(){
@@ -268,7 +300,7 @@ int main(){
     Linklist spot = list4->next->next->next;//让spot指向链表的第3个节点
     Linklist tail = list4;
     while(tail->next!=NULL){
-        tail = tail->next;
+        tail = tail->next;//找到尾节点
     }
     tail->next = spot;//让尾指针指向第三个节点，形成环
     if(hasCycle(list4)){
@@ -277,5 +309,7 @@ int main(){
     else{
         printf("链表无环\n");
     }
+    Linklist v = findcyclespot(list4);
+    printf("环的入口点的值为%d\n", v->data);
     return 0;
 }
