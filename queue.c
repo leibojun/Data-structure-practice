@@ -118,7 +118,7 @@ int gethead2(Queue* Q,Elemtype* e){
 int main(){
     queue q;
     int a;
-    int b;
+    int b; 
     int c;
     int d;
     int e;
@@ -139,6 +139,6 @@ int main(){
     dequeue2(Q,&b);
     dequeue2(Q,&c);
     dequeue2(Q,&d);
-    gethead2(Q,&e);
+    gethead2(Q,&e);//输出（队头元素是4）
     return 0;
 }
