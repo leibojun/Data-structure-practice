@@ -69,7 +69,7 @@ typedef enum{//先定义一个运算符枚举类型便于后续使用
 contentType getToken(char* symbol,int* index){//这里用指针型变量目的是实时修改外部symbol和index的值，否则每次传参symbol和index都是空
     *symbol = expr[*index];//下面eval函数定义了symbol，这一步给symbol赋值了
     *index+=1;
-    swich(*symbol){
+    switch(*symbol){
         case'(': return LEFT_PARE;
         case')': return RIGHT_PARE;
         case'+': return ADD;
